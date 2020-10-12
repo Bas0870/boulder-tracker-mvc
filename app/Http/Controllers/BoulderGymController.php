@@ -16,7 +16,13 @@ class BoulderGymController extends Controller
     public function index()
     {
         return Inertia::render('BoulderGyms/Index', [
-            'boulderGyms' => BoulderGym::all()->toArray()
+            'boulderGyms' => BoulderGym::all()->map(function (BoulderGym $boulderGym) {
+                return [
+                    'id' => $boulderGym->id,
+                    'name' => $boulderGym->name,
+                    'detailUrl' => route('boulder-gyms.show', ['boulder_gym' => $boulderGym->id])
+                ];
+            })
         ]);
     }
 
@@ -45,11 +51,13 @@ class BoulderGymController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\BoulderGym  $boulderGym
-     * @return \Illuminate\Http\Response
+     * @return \Inertia\Response
      */
     public function show(BoulderGym $boulderGym)
     {
-        //
+        return Inertia::render('BoulderGyms/Detail', [
+            'boulderGym' => $boulderGym->load('boulderProblems')
+        ]);
     }
 
     /**

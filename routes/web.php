@@ -22,4 +22,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia\Inertia::render('Dashboard');
 })->name('dashboard');
 
-Route::middleware(['auth:sanctum', 'verified'])->resource('/gyms', BoulderGymController::class);
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::resource('/boulder-gyms', BoulderGymController::class);
+});

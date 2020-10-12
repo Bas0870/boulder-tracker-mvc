@@ -14,8 +14,8 @@
 
                         <!-- Navigation Links -->
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                            <jet-nav-link href="/dashboard" :active="$page.currentRouteName == 'dashboard'">
-                                Dashboard
+                            <jet-nav-link href="/boulder-gyms" :active="$page.currentRouteName == 'boulder-gyms.index'">
+                                Boulder Gyms
                             </jet-nav-link>
                         </div>
                     </div>
@@ -118,8 +118,8 @@
             <!-- Responsive Navigation Menu -->
             <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                 <div class="pt-2 pb-3 space-y-1">
-                    <jet-responsive-nav-link href="/dashboard" :active="$page.currentRouteName == 'dashboard'">
-                        Dashboard
+                    <jet-responsive-nav-link href="/boulder-gyms" :active="$page.currentRouteName == 'boulder-gyms.index'">
+                        Boulder Gyms
                     </jet-responsive-nav-link>
                 </div>
 

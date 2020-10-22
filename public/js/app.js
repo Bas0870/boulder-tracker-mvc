@@ -3488,6 +3488,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
 /* harmony import */ var _Jetstream_SectionBorder__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Jetstream/SectionBorder */ "./resources/js/Jetstream/SectionBorder.vue");
+/* harmony import */ var _Jetstream_DialogModal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Jetstream/DialogModal */ "./resources/js/Jetstream/DialogModal.vue");
+/* harmony import */ var _Jetstream_Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Jetstream/Button */ "./resources/js/Jetstream/Button.vue");
 //
 //
 //
@@ -3512,13 +3514,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['boulderGyms', 'detailUrl'],
   components: {
+    Button: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_3__["default"],
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
-    JetSectionBorder: _Jetstream_SectionBorder__WEBPACK_IMPORTED_MODULE_1__["default"]
+    JetSectionBorder: _Jetstream_SectionBorder__WEBPACK_IMPORTED_MODULE_1__["default"],
+    JetDialogModal: _Jetstream_DialogModal__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  data: function data() {
+    return {
+      showingCreateModal: false
+    };
   }
 });
 
@@ -26732,7 +26766,7 @@ var render = function() {
       attrs: {
         breadcrumbs: [
           { label: "Dashboard", href: "/dashboard" },
-          { label: "Boulder Gyms", href: "/boulder-gyms" }
+          { label: "Boulder Gyms", href: "" }
         ]
       },
       scopedSlots: _vm._u([
@@ -26756,43 +26790,128 @@ var render = function() {
     },
     [
       _vm._v(" "),
-      _vm._l(_vm.boulderGyms, function(boulderGym) {
+      _vm._l(_vm.boulderGyms, function(boulderGym, index) {
         return _c(
           "div",
-          { staticClass: "mt-5 md:mt-0 md:col-span-2" },
+          { key: index, staticClass: "mt-5 md:mt-0 md:col-span-2" },
           [
-            _c(
-              "inertia-link",
-              { attrs: { href: boulderGym.detailUrl } },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "px-4 py-5 sm:p-6 bg-white shadow sm:rounded-lg"
-                  },
-                  [
-                    _c(
-                      "h3",
-                      { staticClass: "text-lg font-medium text-gray-900" },
-                      [
-                        _vm._v(
-                          "\n                " +
-                            _vm._s(boulderGym.name) +
-                            "\n            "
-                        )
-                      ]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("jet-section-border")
-              ],
-              1
-            )
+            _c("inertia-link", { attrs: { href: boulderGym.detailUrl } }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "px-4 py-5 sm:p-6 bg-white shadow sm:rounded-lg hover:bg-blue-100 active:shadow-lg mouse shadow transition ease-in duration-200"
+                },
+                [
+                  _c(
+                    "h3",
+                    { staticClass: "text-lg font-medium text-gray-900" },
+                    [
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(boulderGym.name) +
+                          "\n            "
+                      )
+                    ]
+                  )
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            index !== _vm.boulderGyms.length - 1
+              ? _c("jet-section-border")
+              : _vm._e()
           ],
           1
         )
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "fixed right-10 bottom-10" }, [
+        _c(
+          "button",
+          {
+            staticClass:
+              "p-0 w-12 h-12 bg-red-600 rounded-full hover:bg-red-700 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none",
+            on: {
+              click: function($event) {
+                _vm.showingCreateModal = true
+              }
+            }
+          },
+          [
+            _c(
+              "svg",
+              {
+                staticClass: "w-6 h-6 inline-block",
+                attrs: {
+                  viewBox: "0 0 20 20",
+                  "enable-background": "new 0 0 20 20"
+                }
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    fill: "#FFFFFF",
+                    d:
+                      "M16,10c0,0.553-0.048,1-0.601,1H11v4.399C11,15.951,10.553,16,10,16c-0.553,0-1-0.049-1-0.601V11H4.601\n                                    C4.049,11,4,10.553,4,10c0-0.553,0.049-1,0.601-1H9V4.601C9,4.048,9.447,4,10,4c0.553,0,1,0.048,1,0.601V9h4.399\n                                    C15.952,9,16,9.447,16,10z"
+                  }
+                })
+              ]
+            )
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("jet-dialog-modal", {
+        attrs: { show: _vm.showingCreateModal },
+        scopedSlots: _vm._u([
+          {
+            key: "title",
+            fn: function() {
+              return [_vm._v("Add a new boulder gym")]
+            },
+            proxy: true
+          },
+          {
+            key: "content",
+            fn: function() {
+              return [_vm._v("Form goes here")]
+            },
+            proxy: true
+          },
+          {
+            key: "footer",
+            fn: function() {
+              return [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline",
+                    attrs: { type: "submit" }
+                  },
+                  [_vm._v("\n                Create\n            ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        _vm.showingCreateModal = false
+                      }
+                    }
+                  },
+                  [_vm._v("\n                Cancel\n            ")]
+                )
+              ]
+            },
+            proxy: true
+          }
+        ])
       })
     ],
     2

@@ -3045,6 +3045,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3052,6 +3066,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['breadcrumbs'],
   components: {
     JetApplicationLogo: _Jetstream_ApplicationLogo__WEBPACK_IMPORTED_MODULE_0__["default"],
     JetApplicationMark: _Jetstream_ApplicationMark__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -3449,6 +3464,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3472,9 +3488,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
 /* harmony import */ var _Jetstream_SectionBorder__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Jetstream/SectionBorder */ "./resources/js/Jetstream/SectionBorder.vue");
-//
-//
-//
 //
 //
 //
@@ -25849,7 +25862,65 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("main", [_vm._t("default")], 2),
+      _c("div", { staticClass: "max-w-7xl mx-auto sm:px-6 lg:px-8 py-8" }, [
+        _vm.breadcrumbs
+          ? _c(
+              "nav",
+              {
+                staticClass: "text-black font-bold mb-4 -mt-4",
+                attrs: { "aria-label": "Breadcrumb" }
+              },
+              [
+                _c(
+                  "ol",
+                  { staticClass: "list-none p-0 inline-flex" },
+                  _vm._l(_vm.breadcrumbs, function(breadcrumb, index) {
+                    return _c(
+                      "li",
+                      { key: index, staticClass: "flex items-center" },
+                      [
+                        index !== _vm.breadcrumbs.length - 1 && breadcrumb.href
+                          ? _c(
+                              "inertia-link",
+                              { attrs: { href: breadcrumb.href } },
+                              [_vm._v(_vm._s(breadcrumb.label))]
+                            )
+                          : _c("span", { staticClass: "text-gray-500" }, [
+                              _vm._v(_vm._s(breadcrumb.label))
+                            ]),
+                        _vm._v(" "),
+                        index !== _vm.breadcrumbs.length - 1
+                          ? _c(
+                              "svg",
+                              {
+                                staticClass: "fill-current w-3 h-3 mx-3",
+                                attrs: {
+                                  xmlns: "http://www.w3.org/2000/svg",
+                                  viewBox: "0 0 320 512"
+                                }
+                              },
+                              [
+                                _c("path", {
+                                  attrs: {
+                                    d:
+                                      "M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"
+                                  }
+                                })
+                              ]
+                            )
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  }),
+                  0
+                )
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c("main", [_vm._t("default")], 2)
+      ]),
       _vm._v(" "),
       _c("portal-target", { attrs: { name: "modal", multiple: "" } })
     ],
@@ -26571,6 +26642,13 @@ var render = function() {
   return _c(
     "app-layout",
     {
+      attrs: {
+        breadcrumbs: [
+          { label: "Dashboard", href: "/dashboard" },
+          { label: "Boulder Gyms", href: "/boulder-gyms" },
+          { label: _vm.boulderGym.name, href: "" }
+        ]
+      },
       scopedSlots: _vm._u([
         {
           key: "header",
@@ -26598,42 +26676,32 @@ var render = function() {
     },
     [
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "max-w-7xl mx-auto py-10 sm:px-6 lg:px-8" },
-        _vm._l(_vm.boulderGym.boulder_problems, function(boulderProblem) {
-          return _c(
-            "div",
-            { staticClass: "mt-5 md:mt-0 md:col-span-2" },
-            [
-              _c(
-                "div",
-                {
-                  staticClass: "px-4 py-5 sm:p-6 bg-white shadow sm:rounded-lg"
-                },
-                [
-                  _c(
-                    "h3",
-                    { staticClass: "text-lg font-medium text-gray-900" },
-                    [
-                      _vm._v(
-                        "\n                    " +
-                          _vm._s(boulderProblem.grade) +
-                          "\n                "
-                      )
-                    ]
+      _vm._l(_vm.boulderGym.boulder_problems, function(boulderProblem) {
+        return _c(
+          "div",
+          { staticClass: "mt-5 md:mt-0 md:col-span-2" },
+          [
+            _c(
+              "div",
+              { staticClass: "px-4 py-5 sm:p-6 bg-white shadow sm:rounded-lg" },
+              [
+                _c("h3", { staticClass: "text-lg font-medium text-gray-900" }, [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(boulderProblem.grade) +
+                      "\n            "
                   )
-                ]
-              ),
-              _vm._v(" "),
-              _c("jet-section-border")
-            ],
-            1
-          )
-        }),
-        0
-      )
-    ]
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c("jet-section-border")
+          ],
+          1
+        )
+      })
+    ],
+    2
   )
 }
 var staticRenderFns = []
@@ -26661,6 +26729,12 @@ var render = function() {
   return _c(
     "app-layout",
     {
+      attrs: {
+        breadcrumbs: [
+          { label: "Dashboard", href: "/dashboard" },
+          { label: "Boulder Gyms", href: "/boulder-gyms" }
+        ]
+      },
       scopedSlots: _vm._u([
         {
           key: "header",
@@ -26682,50 +26756,46 @@ var render = function() {
     },
     [
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "max-w-7xl mx-auto py-10 sm:px-6 lg:px-8" },
-        _vm._l(_vm.boulderGyms, function(boulderGym) {
-          return _c(
-            "div",
-            { staticClass: "mt-5 md:mt-0 md:col-span-2" },
-            [
-              _c(
-                "inertia-link",
-                { attrs: { href: boulderGym.detailUrl } },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "px-4 py-5 sm:p-6 bg-white shadow sm:rounded-lg"
-                    },
-                    [
-                      _c(
-                        "h3",
-                        { staticClass: "text-lg font-medium text-gray-900" },
-                        [
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(boulderGym.name) +
-                              "\n                "
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("jet-section-border")
-                ],
-                1
-              )
-            ],
-            1
-          )
-        }),
-        0
-      )
-    ]
+      _vm._l(_vm.boulderGyms, function(boulderGym) {
+        return _c(
+          "div",
+          { staticClass: "mt-5 md:mt-0 md:col-span-2" },
+          [
+            _c(
+              "inertia-link",
+              { attrs: { href: boulderGym.detailUrl } },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "px-4 py-5 sm:p-6 bg-white shadow sm:rounded-lg"
+                  },
+                  [
+                    _c(
+                      "h3",
+                      { staticClass: "text-lg font-medium text-gray-900" },
+                      [
+                        _vm._v(
+                          "\n                " +
+                            _vm._s(boulderGym.name) +
+                            "\n            "
+                        )
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("jet-section-border")
+              ],
+              1
+            )
+          ],
+          1
+        )
+      })
+    ],
+    2
   )
 }
 var staticRenderFns = []

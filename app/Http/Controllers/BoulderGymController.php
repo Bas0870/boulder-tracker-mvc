@@ -44,7 +44,15 @@ class BoulderGymController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validateWithBag('createBoulderGym', [
+            'name' => 'required',
+            'lat' => 'required',
+            'lng' => 'required',
+        ]);
+
+        BoulderGym::create($request->all());
+
+        return redirect()->route('boulder-gyms.index');
     }
 
     /**

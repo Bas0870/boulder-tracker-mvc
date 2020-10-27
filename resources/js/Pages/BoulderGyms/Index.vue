@@ -29,15 +29,43 @@
             </button>
         </div>
 
-        <jet-dialog-modal :show="showingCreateModal">
+        <jet-dialog-modal :show="showingCreateModal" :closeable="true">
             <template #title>Add a new boulder gym</template>
-            <template #content>Form goes here</template>
+            <template #content>
+                <form class="w-full max-w-lg" id="create-boulder-gym-form" @submit.prevent="onSubmitCreateBoulderGymForm">
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full px-3">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="name">
+                                Name
+                            </label>
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="name" type="text" placeholder="" v-model="form.name">
+                            <jet-input-error :message="form.error('name')" class="mt-2" />
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="latitude">
+                                Latitude
+                            </label>
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="latitude" type="text" placeholder="" v-model="form.lat">
+                            <jet-input-error :message="form.error('lat')" class="mt-2" />
+                        </div>
+                        <div class="w-full md:w-1/2 px-3">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="longitude">
+                                Longitude
+                            </label>
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="longitude" type="text" placeholder="" v-model="form.lng">
+                            <jet-input-error :message="form.error('lng')" class="mt-2" />
+                        </div>
+                    </div>
+                </form>
+            </template>
             <template #footer>
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                    Create
-                </button>
                 <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" @click="showingCreateModal= false">
                     Cancel
+                </button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" form="create-boulder-gym-form">
+                    Create
                 </button>
             </template>
         </jet-dialog-modal>
@@ -49,6 +77,7 @@
     import AppLayout from './../../Layouts/AppLayout'
     import JetSectionBorder from "../../Jetstream/SectionBorder";
     import JetDialogModal from "../../Jetstream/DialogModal";
+    import JetInputError from "../../Jetstream/InputError";
     import Button from "../../Jetstream/Button";
 
     export default {
@@ -58,13 +87,32 @@
             Button,
             AppLayout,
             JetSectionBorder,
-            JetDialogModal
+            JetDialogModal,
+            JetInputError,
         },
 
         data() {
             return {
-                showingCreateModal: false
+                showingCreateModal: false,
+                form: this.$inertia.form({
+                    name: "",
+                    lat: "",
+                    lng: ""
+                }, {
+                    bag: 'createBoulderGym',
+                    resetOnSuccess: true,
+                })
             }
         },
+
+        methods: {
+            onSubmitCreateBoulderGymForm() {
+                this.form.post('/boulder-gyms', {preserveScroll: true}).then(() => {
+                    if (! this.$page.errors.length) {
+                        this.showingCreateModal = false;
+                    }
+                })
+            }
+        }
     }
 </script>

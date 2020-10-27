@@ -3489,7 +3489,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
 /* harmony import */ var _Jetstream_SectionBorder__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Jetstream/SectionBorder */ "./resources/js/Jetstream/SectionBorder.vue");
 /* harmony import */ var _Jetstream_DialogModal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Jetstream/DialogModal */ "./resources/js/Jetstream/DialogModal.vue");
-/* harmony import */ var _Jetstream_Button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Jetstream/Button */ "./resources/js/Jetstream/Button.vue");
+/* harmony import */ var _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Jetstream/InputError */ "./resources/js/Jetstream/InputError.vue");
+/* harmony import */ var _Jetstream_Button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Jetstream/Button */ "./resources/js/Jetstream/Button.vue");
 //
 //
 //
@@ -3537,6 +3538,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -3544,15 +3574,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['boulderGyms', 'detailUrl'],
   components: {
-    Button: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_3__["default"],
+    Button: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_4__["default"],
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
     JetSectionBorder: _Jetstream_SectionBorder__WEBPACK_IMPORTED_MODULE_1__["default"],
-    JetDialogModal: _Jetstream_DialogModal__WEBPACK_IMPORTED_MODULE_2__["default"]
+    JetDialogModal: _Jetstream_DialogModal__WEBPACK_IMPORTED_MODULE_2__["default"],
+    JetInputError: _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     return {
-      showingCreateModal: false
+      showingCreateModal: false,
+      form: this.$inertia.form({
+        name: "",
+        lat: "",
+        lng: ""
+      }, {
+        bag: 'createBoulderGym',
+        resetOnSuccess: true
+      })
     };
+  },
+  methods: {
+    onSubmitCreateBoulderGymForm: function onSubmitCreateBoulderGymForm() {
+      var _this = this;
+
+      this.form.post('/boulder-gyms', {
+        preserveScroll: true
+      }).then(function () {
+        if (!_this.$page.errors.length) {
+          _this.showingCreateModal = false;
+        }
+      });
+    }
   }
 });
 
@@ -26863,7 +26915,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("jet-dialog-modal", {
-        attrs: { show: _vm.showingCreateModal },
+        attrs: { show: _vm.showingCreateModal, closeable: true },
         scopedSlots: _vm._u([
           {
             key: "title",
@@ -26875,7 +26927,185 @@ var render = function() {
           {
             key: "content",
             fn: function() {
-              return [_vm._v("Form goes here")]
+              return [
+                _c(
+                  "form",
+                  {
+                    staticClass: "w-full max-w-lg",
+                    attrs: { id: "create-boulder-gym-form" },
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.onSubmitCreateBoulderGymForm($event)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
+                      _c(
+                        "div",
+                        { staticClass: "w-full px-3" },
+                        [
+                          _c(
+                            "label",
+                            {
+                              staticClass:
+                                "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+                              attrs: { for: "name" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                            Name\n                        "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.name,
+                                expression: "form.name"
+                              }
+                            ],
+                            staticClass:
+                              "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+                            attrs: {
+                              id: "name",
+                              type: "text",
+                              placeholder: ""
+                            },
+                            domProps: { value: _vm.form.name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "name", $event.target.value)
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("jet-input-error", {
+                            staticClass: "mt-2",
+                            attrs: { message: _vm.form.error("name") }
+                          })
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
+                      _c(
+                        "div",
+                        { staticClass: "w-full md:w-1/2 px-3 mb-6 md:mb-0" },
+                        [
+                          _c(
+                            "label",
+                            {
+                              staticClass:
+                                "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+                              attrs: { for: "latitude" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                            Latitude\n                        "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.lat,
+                                expression: "form.lat"
+                              }
+                            ],
+                            staticClass:
+                              "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white",
+                            attrs: {
+                              id: "latitude",
+                              type: "text",
+                              placeholder: ""
+                            },
+                            domProps: { value: _vm.form.lat },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "lat", $event.target.value)
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("jet-input-error", {
+                            staticClass: "mt-2",
+                            attrs: { message: _vm.form.error("lat") }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "w-full md:w-1/2 px-3" },
+                        [
+                          _c(
+                            "label",
+                            {
+                              staticClass:
+                                "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+                              attrs: { for: "longitude" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                            Longitude\n                        "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.lng,
+                                expression: "form.lng"
+                              }
+                            ],
+                            staticClass:
+                              "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500",
+                            attrs: {
+                              id: "longitude",
+                              type: "text",
+                              placeholder: ""
+                            },
+                            domProps: { value: _vm.form.lng },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "lng", $event.target.value)
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("jet-input-error", {
+                            staticClass: "mt-2",
+                            attrs: { message: _vm.form.error("lng") }
+                          })
+                        ],
+                        1
+                      )
+                    ])
+                  ]
+                )
+              ]
             },
             proxy: true
           },
@@ -26883,16 +27113,6 @@ var render = function() {
             key: "footer",
             fn: function() {
               return [
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline",
-                    attrs: { type: "submit" }
-                  },
-                  [_vm._v("\n                Create\n            ")]
-                ),
-                _vm._v(" "),
                 _c(
                   "button",
                   {
@@ -26906,6 +27126,16 @@ var render = function() {
                     }
                   },
                   [_vm._v("\n                Cancel\n            ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline",
+                    attrs: { type: "submit", form: "create-boulder-gym-form" }
+                  },
+                  [_vm._v("\n                Create\n            ")]
                 )
               ]
             },

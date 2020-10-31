@@ -3439,6 +3439,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
 /* harmony import */ var _Jetstream_SectionBorder__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Jetstream/SectionBorder */ "./resources/js/Jetstream/SectionBorder.vue");
+/* harmony import */ var _Jetstream_Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Jetstream/Button */ "./resources/js/Jetstream/Button.vue");
+/* harmony import */ var _Jetstream_DialogModal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Jetstream/DialogModal */ "./resources/js/Jetstream/DialogModal.vue");
+/* harmony import */ var _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Jetstream/InputError */ "./resources/js/Jetstream/InputError.vue");
 //
 //
 //
@@ -3465,13 +3468,86 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['boulderGym'],
   components: {
+    Button: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_2__["default"],
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
-    JetSectionBorder: _Jetstream_SectionBorder__WEBPACK_IMPORTED_MODULE_1__["default"]
+    JetSectionBorder: _Jetstream_SectionBorder__WEBPACK_IMPORTED_MODULE_1__["default"],
+    JetDialogModal: _Jetstream_DialogModal__WEBPACK_IMPORTED_MODULE_3__["default"],
+    JetInputError: _Jetstream_InputError__WEBPACK_IMPORTED_MODULE_4__["default"]
+  },
+  data: function data() {
+    return {
+      showingCreateModal: false,
+      form: this.$inertia.form({
+        boulder_gym_id: this.boulderGym.id,
+        grade: ""
+      }, {
+        bag: 'createBoulderProblem',
+        resetOnSuccess: true
+      }),
+      selectableGrades: ['4', '5', '6a', '6a+', '6b', '6b+', '6c', '6c+']
+    };
+  },
+  methods: {
+    onSubmitCreateBoulderProblemForm: function onSubmitCreateBoulderProblemForm() {
+      console.log(this.boulderGym); // this.form.post('/boulder-problems', {preserveScroll: true}).then(() => {
+      //     if (! this.$page.errors.createBoulderProblem) {
+      //         this.showingCreateModal = false;
+      //     }
+      // })
+    }
   }
 });
 
@@ -26762,7 +26838,7 @@ var render = function() {
     },
     [
       _vm._v(" "),
-      _vm._l(_vm.boulderGym.boulder_problems, function(boulderProblem) {
+      _vm._l(_vm.boulderGym.boulderProblems, function(boulderProblem) {
         return _c(
           "div",
           { staticClass: "mt-5 md:mt-0 md:col-span-2" },
@@ -26773,11 +26849,33 @@ var render = function() {
               [
                 _c("h3", { staticClass: "text-lg font-medium text-gray-900" }, [
                   _vm._v(
-                    "\n                " +
+                    "\n                Grade: " +
                       _vm._s(boulderProblem.grade) +
                       "\n            "
                   )
-                ])
+                ]),
+                _vm._v(" "),
+                boulderProblem.creator
+                  ? _c("div", { staticClass: "flex items-center" }, [
+                      _c("img", {
+                        staticClass: "w-10 h-10 rounded-full mr-4",
+                        attrs: {
+                          src: boulderProblem.creator.profile_photo_url,
+                          alt: "Avatar of " + boulderProblem.creator.name
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "text-sm" }, [
+                        _c("p", { staticClass: "text-gray-900 leading-none" }, [
+                          _vm._v(_vm._s(boulderProblem.creator.name))
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "text-gray-600" }, [
+                          _vm._v(_vm._s(boulderProblem.created_at))
+                        ])
+                      ])
+                    ])
+                  : _vm._e()
               ]
             ),
             _vm._v(" "),
@@ -26785,6 +26883,189 @@ var render = function() {
           ],
           1
         )
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "fixed right-10 bottom-10" }, [
+        _c(
+          "button",
+          {
+            staticClass:
+              "p-0 w-12 h-12 bg-red-600 rounded-full hover:bg-red-700 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none",
+            on: {
+              click: function($event) {
+                _vm.showingCreateModal = true
+              }
+            }
+          },
+          [
+            _c(
+              "svg",
+              {
+                staticClass: "w-6 h-6 inline-block",
+                attrs: {
+                  viewBox: "0 0 20 20",
+                  "enable-background": "new 0 0 20 20"
+                }
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    fill: "#FFFFFF",
+                    d:
+                      "M16,10c0,0.553-0.048,1-0.601,1H11v4.399C11,15.951,10.553,16,10,16c-0.553,0-1-0.049-1-0.601V11H4.601\n                                    C4.049,11,4,10.553,4,10c0-0.553,0.049-1,0.601-1H9V4.601C9,4.048,9.447,4,10,4c0.553,0,1,0.048,1,0.601V9h4.399\n                                    C15.952,9,16,9.447,16,10z"
+                  }
+                })
+              ]
+            )
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("jet-dialog-modal", {
+        attrs: { show: _vm.showingCreateModal, closeable: true },
+        scopedSlots: _vm._u([
+          {
+            key: "title",
+            fn: function() {
+              return [_vm._v("Add a new boulder gym")]
+            },
+            proxy: true
+          },
+          {
+            key: "content",
+            fn: function() {
+              return [
+                _c(
+                  "form",
+                  {
+                    staticClass: "w-full max-w-lg",
+                    attrs: { id: "create-boulder-gym-form" },
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.onSubmitCreateBoulderProblemForm($event)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
+                      _c(
+                        "div",
+                        { staticClass: "w-full md:w-1/2 px-3 mb-6 md:mb-0" },
+                        [
+                          _c(
+                            "label",
+                            {
+                              staticClass:
+                                "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
+                              attrs: { for: "grade" }
+                            },
+                            [
+                              _vm._v(
+                                "\n                            Grade\n                        "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.grade,
+                                expression: "form.grade"
+                              }
+                            ],
+                            staticClass:
+                              "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white",
+                            attrs: {
+                              id: "grade",
+                              type: "text",
+                              placeholder: ""
+                            },
+                            domProps: { value: _vm.form.grade },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(_vm.form, "grade", $event.target.value)
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("jet-input-error", {
+                            staticClass: "mt-2",
+                            attrs: { message: _vm.form.error("grade") }
+                          })
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.boulderGym.id,
+                          expression: "boulderGym.id"
+                        }
+                      ],
+                      attrs: {
+                        id: "boulder_gym_id",
+                        type: "hidden",
+                        placeholder: ""
+                      },
+                      domProps: { value: _vm.boulderGym.id },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.boulderGym, "id", $event.target.value)
+                        }
+                      }
+                    })
+                  ]
+                )
+              ]
+            },
+            proxy: true
+          },
+          {
+            key: "footer",
+            fn: function() {
+              return [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        _vm.showingCreateModal = false
+                      }
+                    }
+                  },
+                  [_vm._v("\n                Cancel\n            ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline",
+                    attrs: { type: "submit", form: "create-boulder-gym-form" }
+                  },
+                  [_vm._v("\n                Create\n            ")]
+                )
+              ]
+            },
+            proxy: true
+          }
+        ])
       })
     ],
     2

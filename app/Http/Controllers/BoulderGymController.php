@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BoulderGymResource;
 use App\Models\BoulderGym;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -16,13 +17,7 @@ class BoulderGymController extends Controller
     public function index()
     {
         return Inertia::render('BoulderGyms/Index', [
-            'boulderGyms' => BoulderGym::all()->map(function (BoulderGym $boulderGym) {
-                return [
-                    'id' => $boulderGym->id,
-                    'name' => $boulderGym->name,
-                    'detailUrl' => route('boulder-gyms.show', ['boulder_gym' => $boulderGym->id])
-                ];
-            })
+            'boulderGyms' => BoulderGymResource::collection(BoulderGym::all())
         ]);
     }
 
@@ -40,7 +35,7 @@ class BoulderGymController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -63,8 +58,10 @@ class BoulderGymController extends Controller
      */
     public function show(BoulderGym $boulderGym)
     {
+        $boulderGym->load('boulderProblems', 'boulderProblems.creator');
+
         return Inertia::render('BoulderGyms/Detail', [
-            'boulderGym' => $boulderGym->load('boulderProblems')
+            'boulderGym' => new BoulderGymResource($boulderGym)
         ]);
     }
 

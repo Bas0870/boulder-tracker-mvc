@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BoulderGymController;
+use App\Http\Controllers\BoulderProblemController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,4 +25,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::resource('/boulder-gyms', BoulderGymController::class);
+
+    Route::post('/boulder-problems', [BoulderProblemController::class, 'store']);
 });

@@ -17,7 +17,7 @@
                     Grade: {{ boulderProblem.grade }}
                 </h3>
                 <div v-if="boulderProblem.creator" class="flex items-center">
-                    <img class="w-10 h-10 rounded-full mr-4" :src="boulderProblem.creator.profile_photo_url" :alt="'Avatar of ' + boulderProblem.creator.name">
+                    <img class="w-10 h-10 rounded-full mr-4" :src="boulderProblem.creator.name" :alt="'Avatar of ' + boulderProblem.creator.name">
                     <div class="text-sm">
                         <p class="text-gray-900 leading-none">{{ boulderProblem.creator.name }}</p>
                         <p class="text-gray-600">{{ boulderProblem.created_at }}</p>
@@ -105,12 +105,11 @@
 
         methods: {
             onSubmitCreateBoulderProblemForm() {
-                console.log(this.boulderGym)
-                // this.form.post('/boulder-problems', {preserveScroll: true}).then(() => {
-                //     if (! this.$page.errors.createBoulderProblem) {
-                //         this.showingCreateModal = false;
-                //     }
-                // })
+                this.form.post('/boulder-problems', {preserveScroll: true}).then(() => {
+                    if (! this.$page.errors.createBoulderProblem) {
+                        this.showingCreateModal = false;
+                    }
+                })
             }
         }
     }

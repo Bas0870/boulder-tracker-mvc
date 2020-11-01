@@ -3542,11 +3542,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onSubmitCreateBoulderProblemForm: function onSubmitCreateBoulderProblemForm() {
-      console.log(this.boulderGym); // this.form.post('/boulder-problems', {preserveScroll: true}).then(() => {
-      //     if (! this.$page.errors.createBoulderProblem) {
-      //         this.showingCreateModal = false;
-      //     }
-      // })
+      var _this = this;
+
+      this.form.post('/boulder-problems', {
+        preserveScroll: true
+      }).then(function () {
+        if (!_this.$page.errors.createBoulderProblem) {
+          _this.showingCreateModal = false;
+        }
+      });
     }
   }
 });
@@ -3642,13 +3646,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['boulderGyms', 'detailUrl'],
+  props: ['boulderGyms', 'searchQuery'],
   components: {
     Button: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_4__["default"],
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -3659,6 +3673,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       showingCreateModal: false,
+      q: this.searchQuery,
       form: this.$inertia.form({
         name: "",
         lat: "",
@@ -3680,7 +3695,15 @@ __webpack_require__.r(__webpack_exports__);
           _this.showingCreateModal = false;
         }
       });
-    }
+    },
+    onSearchQueryChange: _.debounce(function () {
+      this.$inertia.visit('/boulder-gyms', {
+        method: 'get',
+        data: {
+          q: this.q
+        }
+      });
+    }, 250)
   }
 });
 
@@ -26860,7 +26883,7 @@ var render = function() {
                       _c("img", {
                         staticClass: "w-10 h-10 rounded-full mr-4",
                         attrs: {
-                          src: boulderProblem.creator.profile_photo_url,
+                          src: boulderProblem.creator.name,
                           alt: "Avatar of " + boulderProblem.creator.name
                         }
                       }),
@@ -27122,6 +27145,29 @@ var render = function() {
       ])
     },
     [
+      _vm._v(" "),
+      _c("div", { staticClass: "container mx-auto py-8" }, [
+        _c("input", {
+          directives: [
+            { name: "model", rawName: "v-model", value: _vm.q, expression: "q" }
+          ],
+          staticClass:
+            "w-full h-16 px-3 rounded mb-8 focus:outline-none focus:shadow-outline text-xl px-8 shadow-lg",
+          attrs: { type: "search", placeholder: "Search..." },
+          domProps: { value: _vm.q },
+          on: {
+            input: [
+              function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.q = $event.target.value
+              },
+              _vm.onSearchQueryChange
+            ]
+          }
+        })
+      ]),
       _vm._v(" "),
       _vm._l(_vm.boulderGyms, function(boulderGym, index) {
         return _c(

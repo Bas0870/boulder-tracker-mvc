@@ -6,6 +6,16 @@
             </h2>
         </template>
 
+        <div class="container mx-auto py-8">
+            <input
+                class="w-full h-16 px-3 rounded mb-8 focus:outline-none focus:shadow-outline text-xl px-8 shadow-lg"
+                type="search"
+                placeholder="Search..."
+                v-model="q"
+                @input="onSearchQueryChange"
+            >
+        </div>
+
         <div class="mt-5 md:mt-0 md:col-span-2" v-for="(boulderGym, index) in boulderGyms" :key="index">
             <inertia-link :href="boulderGym.detailUrl">
             <div class="px-4 py-5 sm:p-6 bg-white shadow sm:rounded-lg hover:bg-blue-100 active:shadow-lg mouse shadow transition ease-in duration-200">
@@ -81,7 +91,7 @@
     import Button from "../../Jetstream/Button";
 
     export default {
-        props: ['boulderGyms', 'detailUrl'],
+        props: ['boulderGyms', 'searchQuery'],
 
         components: {
             Button,
@@ -94,6 +104,7 @@
         data() {
             return {
                 showingCreateModal: false,
+                q: this.searchQuery,
                 form: this.$inertia.form({
                     name: "",
                     lat: "",
@@ -112,7 +123,11 @@
                         this.showingCreateModal = false;
                     }
                 })
-            }
+            },
+
+            onSearchQueryChange: _.debounce(function() {
+                this.$inertia.visit('/boulder-gyms', { method: 'get', data: { q: this.q }})
+            }, 250)
         }
     }
 </script>

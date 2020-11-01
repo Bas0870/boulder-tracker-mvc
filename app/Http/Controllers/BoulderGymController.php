@@ -14,10 +14,18 @@ class BoulderGymController extends Controller
      *
      * @return \Inertia\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->has('q')) {
+            $query = $request->get('q');
+            $boulderGyms = BoulderGym::where('name', 'like', $query . '%')->get();
+        } else {
+            $boulderGyms = BoulderGym::all();
+        }
+
         return Inertia::render('BoulderGyms/Index', [
-            'boulderGyms' => BoulderGymResource::collection(BoulderGym::all())
+            'boulderGyms' => BoulderGymResource::collection($boulderGyms),
+            'searchQuery' => $request->get('q')
         ]);
     }
 

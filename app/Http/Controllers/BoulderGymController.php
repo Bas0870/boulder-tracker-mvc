@@ -60,12 +60,18 @@ class BoulderGymController extends Controller
     public function show(BoulderGym $boulderGym, Request $request)
     {
         $userId = $request->user()->id;
-        $boulderGym->load(['boulderProblems', 'boulderProblems.creator', 'boulderProblems.usersThatToppedProblem' => function ($query) use ($userId) {
+        $boulderGym->load(['boulderProblems' => function ($query) use ($request) {
+            if ($request->has('grade')) {
+                return $query->where('grade', $request->get('grade'));
+            }
+            return $query;
+        }, 'boulderProblems.creator', 'boulderProblems.usersThatToppedProblem' => function ($query) use ($userId) {
             return $query->where('user_id', $userId);
         }]);
 
         return Inertia::render('BoulderGyms/Detail', [
-            'boulderGym' => new BoulderGymResource($boulderGym)
+            'boulderGym' => new BoulderGymResource($boulderGym),
+            'selectedGradeFilter' => $request->get('grade', 'Select grade')
         ]);
     }
 }

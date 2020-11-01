@@ -3536,13 +3536,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['boulderGym'],
+  props: ['boulderGym', 'selectedGradeFilter'],
   components: {
     Button: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_2__["default"],
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -3553,15 +3567,16 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       isTopped: false,
+      gradeFilter: this.selectedGradeFilter,
       showingCreateModal: false,
       form: this.$inertia.form({
         boulder_gym_id: this.boulderGym.id,
-        grade: ""
+        grade: "Select grade"
       }, {
         bag: 'createBoulderProblem',
         resetOnSuccess: true
       }),
-      selectableGrades: ['4', '5', '6a', '6a+', '6b', '6b+', '6c', '6c+']
+      selectableGrades: ['Select grade', '4', '5', '6a', '6a+', '6b', '6b+', '6c', '6c+']
     };
   },
   methods: {
@@ -3583,6 +3598,14 @@ __webpack_require__.r(__webpack_exports__);
         preserveScroll: true,
         data: {
           top: boulderProblem.isTopped
+        }
+      });
+    },
+    onGradeFilterChange: function onGradeFilterChange() {
+      this.$inertia.visit("/boulder-gyms/".concat(this.boulderGym.id), {
+        method: 'get',
+        data: {
+          grade: this.gradeFilter
         }
       });
     }
@@ -26895,6 +26918,77 @@ var render = function() {
     },
     [
       _vm._v(" "),
+      _c("div", { staticClass: "container mx-auto py-8" }, [
+        _vm._v("\n        Filter on Grade:\n        "),
+        _c("div", { staticClass: "inline-block relative w-64" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.gradeFilter,
+                  expression: "gradeFilter"
+                }
+              ],
+              staticClass:
+                "block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline",
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.gradeFilter = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                  _vm.onGradeFilterChange
+                ]
+              }
+            },
+            _vm._l(_vm.selectableGrades, function(grade) {
+              return _c("option", { key: grade }, [_vm._v(_vm._s(grade))])
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+            },
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "fill-current h-4 w-4",
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 20 20"
+                  }
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      d:
+                        "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                    }
+                  })
+                ]
+              )
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
       _vm._l(_vm.boulderGym.boulderProblems, function(boulderProblem) {
         return _c(
           "div",
@@ -27087,60 +27181,82 @@ var render = function() {
                     }
                   },
                   [
-                    _c("div", { staticClass: "flex flex-wrap -mx-3 mb-6" }, [
+                    _vm._v("\n                Grade:\n                "),
+                    _c("div", { staticClass: "inline-block relative w-64" }, [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.grade,
+                              expression: "form.grade"
+                            }
+                          ],
+                          staticClass:
+                            "block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.form,
+                                "grade",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        _vm._l(_vm.selectableGrades, function(grade) {
+                          return _c("option", { key: grade }, [
+                            _vm._v(_vm._s(grade))
+                          ])
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
                       _c(
                         "div",
-                        { staticClass: "w-full md:w-1/2 px-3 mb-6 md:mb-0" },
+                        {
+                          staticClass:
+                            "pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                        },
                         [
                           _c(
-                            "label",
+                            "svg",
                             {
-                              staticClass:
-                                "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
-                              attrs: { for: "grade" }
+                              staticClass: "fill-current h-4 w-4",
+                              attrs: {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                viewBox: "0 0 20 20"
+                              }
                             },
                             [
-                              _vm._v(
-                                "\n                            Grade\n                        "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.grade,
-                                expression: "form.grade"
-                              }
-                            ],
-                            staticClass:
-                              "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white",
-                            attrs: {
-                              id: "grade",
-                              type: "text",
-                              placeholder: ""
-                            },
-                            domProps: { value: _vm.form.grade },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
+                              _c("path", {
+                                attrs: {
+                                  d:
+                                    "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
                                 }
-                                _vm.$set(_vm.form, "grade", $event.target.value)
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("jet-input-error", {
-                            staticClass: "mt-2",
-                            attrs: { message: _vm.form.error("grade") }
-                          })
-                        ],
-                        1
+                              })
+                            ]
+                          )
+                        ]
                       )
                     ]),
+                    _vm._v(" "),
+                    _c("jet-input-error", {
+                      staticClass: "mt-2",
+                      attrs: { message: _vm.form.error("grade") }
+                    }),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -27166,7 +27282,8 @@ var render = function() {
                         }
                       }
                     })
-                  ]
+                  ],
+                  1
                 )
               ]
             },

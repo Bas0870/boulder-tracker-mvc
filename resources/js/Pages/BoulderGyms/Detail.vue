@@ -10,6 +10,19 @@
             </h2>
         </template>
 
+        <div class="container mx-auto py-8">
+            Filter on Grade:
+            <div class="inline-block relative w-64">
+                <select v-model="gradeFilter" @change="onGradeFilterChange" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                    <option v-for="grade in selectableGrades" :key="grade">{{ grade }}</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                </div>
+            </div>
+        </div>
+
+
         <div class="mt-5 md:mt-0 md:col-span-2" v-for="boulderProblem in boulderGym.boulderProblems">
             <div class="px-4 py-5 sm:p-6 bg-white shadow sm:rounded-lg">
                 <h3 class="text-lg font-medium text-gray-900">
@@ -66,15 +79,16 @@
             <template #title>Add a new boulder gym</template>
             <template #content>
                 <form class="w-full max-w-lg" id="create-boulder-gym-form" @submit.prevent="onSubmitCreateBoulderProblemForm">
-                    <div class="flex flex-wrap -mx-3 mb-6">
-                        <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grade">
-                                Grade
-                            </label>
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" id="grade" type="text" placeholder="" v-model="form.grade">
-                            <jet-input-error :message="form.error('grade')" class="mt-2" />
+                    Grade:
+                    <div class="inline-block relative w-64">
+                        <select v-model="form.grade" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                            <option v-for="grade in selectableGrades" :key="grade">{{ grade }}</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                         </div>
                     </div>
+                    <jet-input-error :message="form.error('grade')" class="mt-2" />
                     <input id="boulder_gym_id" type="hidden" placeholder="" v-model="boulderGym.id">
 
                 </form>
@@ -100,7 +114,7 @@
     import JetInputError from "../../Jetstream/InputError";
 
     export default {
-        props: ['boulderGym'],
+        props: ['boulderGym', 'selectedGradeFilter'],
 
         components: {
             Button,
@@ -113,16 +127,17 @@
         data() {
             return {
                 isTopped: false,
+                gradeFilter: this.selectedGradeFilter,
                 showingCreateModal: false,
                 form: this.$inertia.form({
                     boulder_gym_id: this.boulderGym.id,
-                    grade: ""
+                    grade: "Select grade"
                 }, {
                     bag: 'createBoulderProblem',
                     resetOnSuccess: true,
                 }),
                 selectableGrades: [
-                    '4', '5', '6a', '6a+', '6b', '6b+', '6c', '6c+'
+                    'Select grade', '4', '5', '6a', '6a+', '6b', '6b+', '6c', '6c+'
                 ]
             }
         },
@@ -138,6 +153,9 @@
             onClickTopToggle(boulderProblem) {
                 boulderProblem.isTopped = !boulderProblem.isTopped;
                 this.$inertia.visit(`/boulder-problems/${boulderProblem.id}/top`, { method: 'post', preserveScroll: true, data: { top: boulderProblem.isTopped }})
+            },
+            onGradeFilterChange() {
+                this.$inertia.visit(`/boulder-gyms/${this.boulderGym.id}`, { method: 'get', data: { grade: this.gradeFilter }})
             }
         }
     }

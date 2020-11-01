@@ -3512,7 +3512,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -26847,7 +26846,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n            " +
+                    "\n            Boulder Problems of " +
                       _vm._s(_vm.boulderGym.name) +
                       "\n        "
                   )
@@ -26883,7 +26882,7 @@ var render = function() {
                       _c("img", {
                         staticClass: "w-10 h-10 rounded-full mr-4",
                         attrs: {
-                          src: boulderProblem.creator.name,
+                          src: boulderProblem.creator.profile_photo_url,
                           alt: "Avatar of " + boulderProblem.creator.name
                         }
                       }),

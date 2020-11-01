@@ -6,10 +6,9 @@
          ]">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ boulderGym.name }}
+                Boulder Problems of {{ boulderGym.name }}
             </h2>
         </template>
-
 
         <div class="mt-5 md:mt-0 md:col-span-2" v-for="boulderProblem in boulderGym.boulderProblems">
             <div class="px-4 py-5 sm:p-6 bg-white shadow sm:rounded-lg">
@@ -17,7 +16,7 @@
                     Grade: {{ boulderProblem.grade }}
                 </h3>
                 <div v-if="boulderProblem.creator" class="flex items-center">
-                    <img class="w-10 h-10 rounded-full mr-4" :src="boulderProblem.creator.name" :alt="'Avatar of ' + boulderProblem.creator.name">
+                    <img class="w-10 h-10 rounded-full mr-4" :src="boulderProblem.creator.profile_photo_url" :alt="'Avatar of ' + boulderProblem.creator.name">
                     <div class="text-sm">
                         <p class="text-gray-900 leading-none">{{ boulderProblem.creator.name }}</p>
                         <p class="text-gray-600">{{ boulderProblem.created_at }}</p>

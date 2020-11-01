@@ -9,6 +9,7 @@ class BoulderProblem extends Model
     protected $fillable = [
         'boulder_gym_id',
         'user_id',
+        'image',
         'grade'
     ];
 

@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class BoulderProblemResource extends JsonResource
 {
@@ -18,6 +19,7 @@ class BoulderProblemResource extends JsonResource
             'id' => $this->id,
             'grade' => $this->grade,
             'isTopped' => (bool) count($this->usersThatToppedProblem),
+            'image' => $this->image ? Storage::url($this->image) : null,
             'creator' => $this->creator,
             'created_at' => $this->created_at ? $this->created_at->toDateTimeString() : null
         ];

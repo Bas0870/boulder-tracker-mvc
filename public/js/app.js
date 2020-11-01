@@ -3550,6 +3550,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3571,6 +3580,7 @@ __webpack_require__.r(__webpack_exports__);
       showingCreateModal: false,
       form: this.$inertia.form({
         boulder_gym_id: this.boulderGym.id,
+        image: "",
         grade: "Select grade"
       }, {
         bag: 'createBoulderProblem',
@@ -3608,6 +3618,9 @@ __webpack_require__.r(__webpack_exports__);
           grade: this.gradeFilter
         }
       });
+    },
+    onFileUploadChange: function onFileUploadChange() {
+      this.form.image = this.$refs.file.files[0];
     }
   }
 });
@@ -27006,18 +27019,118 @@ var render = function() {
           [
             _c(
               "div",
-              { staticClass: "px-4 py-5 sm:p-6 bg-white shadow sm:rounded-lg" },
+              {
+                staticClass:
+                  "max-w-sm rounded overflow-hidden bg-white shadow-lg"
+              },
               [
-                _c("h3", { staticClass: "text-lg font-medium text-gray-900" }, [
-                  _vm._v(
-                    "\n                Grade: " +
-                      _vm._s(boulderProblem.grade) +
-                      "\n            "
-                  )
+                _c("div", { staticClass: "px-6 py-4" }, [
+                  boulderProblem.isTopped
+                    ? _c(
+                        "label",
+                        {
+                          staticClass:
+                            "mt-3 inline-flex items-center cursor-pointer",
+                          attrs: { for: "checked" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.onClickTopToggle(boulderProblem)
+                            }
+                          }
+                        },
+                        [
+                          _c("span", { staticClass: "relative" }, [
+                            _c("span", {
+                              staticClass:
+                                "block w-10 h-6 bg-gray-400 rounded-full shadow-inner"
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-600 transform translate-x-full"
+                              },
+                              [
+                                _c("input", {
+                                  staticClass: "absolute opacity-0 w-0 h-0",
+                                  attrs: { id: "checked", type: "checkbox" }
+                                })
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "ml-3 text-sm" }, [
+                            _vm._v("Topped!")
+                          ])
+                        ]
+                      )
+                    : _c(
+                        "label",
+                        {
+                          staticClass:
+                            "mt-3 inline-flex items-center cursor-pointer",
+                          attrs: { for: "unchecked" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              return _vm.onClickTopToggle(boulderProblem)
+                            }
+                          }
+                        },
+                        [
+                          _c("span", { staticClass: "relative" }, [
+                            _c("span", {
+                              staticClass:
+                                "block w-10 h-6 bg-gray-400 rounded-full shadow-inner"
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "absolute block w-4 h-4 mt-1 ml-1 bg-white rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out"
+                              },
+                              [
+                                _c("input", {
+                                  staticClass: "absolute opacity-0 w-0 h-0",
+                                  attrs: { id: "unchecked", type: "checkbox" }
+                                })
+                              ]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "ml-3 text-sm" }, [
+                            _vm._v("Not Topped")
+                          ])
+                        ]
+                      ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "font-bold text-xl mb-2" }, [
+                    _vm._v(
+                      "Boulder Problem #" + _vm._s(boulderProblem.id) + " "
+                    ),
+                    _c(
+                      "span",
+                      {
+                        staticClass:
+                          "inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                      },
+                      [_vm._v("Grade: " + _vm._s(boulderProblem.grade))]
+                    )
+                  ])
                 ]),
                 _vm._v(" "),
+                boulderProblem.image
+                  ? _c("img", {
+                      staticClass: "w-full",
+                      attrs: { src: boulderProblem.image }
+                    })
+                  : _vm._e(),
+                _vm._v(" "),
                 boulderProblem.creator
-                  ? _c("div", { staticClass: "flex items-center" }, [
+                  ? _c("div", { staticClass: "flex items-center pl-6 py-6" }, [
                       _c("img", {
                         staticClass: "w-10 h-10 rounded-full mr-4",
                         attrs: {
@@ -27036,89 +27149,7 @@ var render = function() {
                         ])
                       ])
                     ])
-                  : _vm._e(),
-                _vm._v(" "),
-                boulderProblem.isTopped
-                  ? _c(
-                      "label",
-                      {
-                        staticClass:
-                          "mt-3 inline-flex items-center cursor-pointer",
-                        attrs: { for: "checked" },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.onClickTopToggle(boulderProblem)
-                          }
-                        }
-                      },
-                      [
-                        _c("span", { staticClass: "relative" }, [
-                          _c("span", {
-                            staticClass:
-                              "block w-10 h-6 bg-gray-400 rounded-full shadow-inner"
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "span",
-                            {
-                              staticClass:
-                                "absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out bg-purple-600 transform translate-x-full"
-                            },
-                            [
-                              _c("input", {
-                                staticClass: "absolute opacity-0 w-0 h-0",
-                                attrs: { id: "checked", type: "checkbox" }
-                              })
-                            ]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "ml-3 text-sm" }, [
-                          _vm._v("Topped!")
-                        ])
-                      ]
-                    )
-                  : _c(
-                      "label",
-                      {
-                        staticClass:
-                          "mt-3 inline-flex items-center cursor-pointer",
-                        attrs: { for: "unchecked" },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.onClickTopToggle(boulderProblem)
-                          }
-                        }
-                      },
-                      [
-                        _c("span", { staticClass: "relative" }, [
-                          _c("span", {
-                            staticClass:
-                              "block w-10 h-6 bg-gray-400 rounded-full shadow-inner"
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "span",
-                            {
-                              staticClass:
-                                "absolute block w-4 h-4 mt-1 ml-1 bg-white rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out"
-                            },
-                            [
-                              _c("input", {
-                                staticClass: "absolute opacity-0 w-0 h-0",
-                                attrs: { id: "unchecked", type: "checkbox" }
-                              })
-                            ]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "ml-3 text-sm" }, [
-                          _vm._v("Not Topped")
-                        ])
-                      ]
-                    )
+                  : _vm._e()
               ]
             ),
             _vm._v(" "),
@@ -27291,7 +27322,58 @@ var render = function() {
                           _vm.$set(_vm.boulderGym, "id", $event.target.value)
                         }
                       }
-                    })
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "flex items-center mt-4 justify-center bg-grey-lighter"
+                      },
+                      [
+                        _c(
+                          "label",
+                          {
+                            staticClass:
+                              "w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white"
+                          },
+                          [
+                            _c(
+                              "svg",
+                              {
+                                staticClass: "w-8 h-8",
+                                attrs: {
+                                  fill: "currentColor",
+                                  xmlns: "http://www.w3.org/2000/svg",
+                                  viewBox: "0 0 20 20"
+                                }
+                              },
+                              [
+                                _c("path", {
+                                  attrs: {
+                                    d:
+                                      "M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z"
+                                  }
+                                })
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              { staticClass: "mt-2 text-base leading-normal" },
+                              [_vm._v("Select a photo")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              ref: "file",
+                              staticClass: "hidden",
+                              attrs: { type: "file" },
+                              on: { change: _vm.onFileUploadChange }
+                            })
+                          ]
+                        )
+                      ]
+                    )
                   ],
                   1
                 )

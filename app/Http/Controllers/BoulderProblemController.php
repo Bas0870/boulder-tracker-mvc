@@ -24,7 +24,9 @@ class BoulderProblemController extends Controller
             ]
         ]);
 
-        BoulderProblem::create(array_merge($request->all(), ['user_id' => $request->user()->id]));
+        $path = $request->file('image')->store('boulder_problems', 'public');
+
+        BoulderProblem::create(array_merge($request->all(), ['user_id' => $request->user()->id, 'image' => $path]));
 
         return redirect()->route('boulder-gyms.show', ['boulder_gym' => $request->get('boulder_gym_id')]);
     }

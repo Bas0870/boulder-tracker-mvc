@@ -24,19 +24,9 @@
 
 
         <div class="mt-5 md:mt-0 md:col-span-2" v-for="boulderProblem in boulderGym.boulderProblems">
-            <div class="px-4 py-5 sm:p-6 bg-white shadow sm:rounded-lg">
-                <h3 class="text-lg font-medium text-gray-900">
-                    Grade: {{ boulderProblem.grade }}
-                </h3>
-                <div v-if="boulderProblem.creator" class="flex items-center">
-                    <img class="w-10 h-10 rounded-full mr-4" :src="boulderProblem.creator.profile_photo_url" :alt="'Avatar of ' + boulderProblem.creator.name">
-                    <div class="text-sm">
-                        <p class="text-gray-900 leading-none">{{ boulderProblem.creator.name }}</p>
-                        <p class="text-gray-600">{{ boulderProblem.created_at }}</p>
-                    </div>
-                </div>
-
-                <label v-if="boulderProblem.isTopped" for="checked" class="mt-3 inline-flex items-center cursor-pointer" @click.prevent="onClickTopToggle(boulderProblem)">
+            <div class="max-w-sm rounded overflow-hidden bg-white shadow-lg">
+                <div class="px-6 py-4">
+                    <label v-if="boulderProblem.isTopped" for="checked" class="mt-3 inline-flex items-center cursor-pointer" @click.prevent="onClickTopToggle(boulderProblem)">
                     <span class="relative">
                       <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
                       <span
@@ -44,10 +34,10 @@
                         <input id="checked" type="checkbox" class="absolute opacity-0 w-0 h-0"/>
                       </span>
                     </span>
-                    <span class="ml-3 text-sm">Topped!</span>
-                </label>
+                        <span class="ml-3 text-sm">Topped!</span>
+                    </label>
 
-                <label v-else for="unchecked" class="mt-3 inline-flex items-center cursor-pointer" @click.prevent="onClickTopToggle(boulderProblem)">
+                    <label v-else for="unchecked" class="mt-3 inline-flex items-center cursor-pointer" @click.prevent="onClickTopToggle(boulderProblem)">
                     <span class="relative">
                       <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
                       <span
@@ -55,10 +45,19 @@
                         <input id="unchecked" type="checkbox" class="absolute opacity-0 w-0 h-0"/>
                       </span>
                     </span>
-                    <span class="ml-3 text-sm">Not Topped</span>
-                </label>
+                        <span class="ml-3 text-sm">Not Topped</span>
+                    </label>
 
-
+                    <div class="font-bold text-xl mb-2">Boulder Problem #{{ boulderProblem.id }} <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Grade: {{ boulderProblem.grade }}</span></div>
+                </div>
+                <img v-if="boulderProblem.image" class="w-full" :src="boulderProblem.image">
+                <div v-if="boulderProblem.creator" class="flex items-center pl-6 py-6">
+                    <img class="w-10 h-10 rounded-full mr-4" :src="boulderProblem.creator.profile_photo_url" :alt="'Avatar of ' + boulderProblem.creator.name">
+                    <div class="text-sm">
+                        <p class="text-gray-900 leading-none">{{ boulderProblem.creator.name }}</p>
+                        <p class="text-gray-600">{{ boulderProblem.created_at }}</p>
+                    </div>
+                </div>
             </div>
 
             <jet-section-border />
@@ -90,6 +89,16 @@
                     </div>
                     <jet-input-error :message="form.error('grade')" class="mt-2" />
                     <input id="boulder_gym_id" type="hidden" placeholder="" v-model="boulderGym.id">
+
+                    <div class="flex items-center mt-4 justify-center bg-grey-lighter">
+                        <label class="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
+                            <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                            </svg>
+                            <span class="mt-2 text-base leading-normal">Select a photo</span>
+                            <input @change="onFileUploadChange" ref="file" type='file' class="hidden" />
+                        </label>
+                    </div>
 
                 </form>
             </template>
@@ -131,6 +140,7 @@
                 showingCreateModal: false,
                 form: this.$inertia.form({
                     boulder_gym_id: this.boulderGym.id,
+                    image: "",
                     grade: "Select grade"
                 }, {
                     bag: 'createBoulderProblem',
@@ -156,6 +166,9 @@
             },
             onGradeFilterChange() {
                 this.$inertia.visit(`/boulder-gyms/${this.boulderGym.id}`, { method: 'get', data: { grade: this.gradeFilter }})
+            },
+            onFileUploadChange() {
+                this.form.image = this.$refs.file.files[0];
             }
         }
     }

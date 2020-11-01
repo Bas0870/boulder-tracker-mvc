@@ -3795,6 +3795,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -27760,8 +27770,48 @@ var render = function() {
           _c(
             "div",
             { staticClass: "bg-white overflow-hidden shadow-xl sm:rounded-lg" },
-            [_c("welcome")],
-            1
+            [
+              _c(
+                "div",
+                { staticClass: "max-w rounded overflow-hidden shadow-lg" },
+                [
+                  _c("div", { staticClass: "px-6 py-4" }, [
+                    _c("div", { staticClass: "font-bold text-xl mb-2" }, [
+                      _vm._v("🚧🚧 Under construction 🛠 🚧🚧")
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "text-gray-700 text-base" }, [
+                      _vm._v(
+                        "\n                            Here you'll be able to see all your statistics and progress in the future!\n                        "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "p",
+                      { staticClass: "text-gray-700 text-base" },
+                      [
+                        _vm._v(
+                          "\n                            Why don't you head on over to the "
+                        ),
+                        _c(
+                          "inertia-link",
+                          {
+                            staticClass:
+                              "inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700",
+                            attrs: { href: "/boulder-gyms" }
+                          },
+                          [_vm._v("Boulder Gyms")]
+                        ),
+                        _vm._v(
+                          " and start topping some boulder problems?! 🧗‍♂️\n                        "
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                ]
+              )
+            ]
           )
         ])
       ])

@@ -26,7 +26,8 @@ class BoulderGymController extends Controller
 
         return Inertia::render('BoulderGyms/Index', [
             'boulderGyms' => BoulderGymResource::collection($boulderGyms),
-            'searchQuery' => $request->get('q')
+            'searchQuery' => $request->get('q'),
+            'isAdmin' => (bool) $request->user()->admin
         ]);
     }
 

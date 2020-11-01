@@ -3696,7 +3696,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['boulderGyms', 'searchQuery'],
+  props: ['boulderGyms', 'searchQuery', 'isAdmin'],
   components: {
     Button: _Jetstream_Button__WEBPACK_IMPORTED_MODULE_4__["default"],
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -27321,41 +27321,43 @@ var render = function() {
         )
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "fixed right-10 bottom-10" }, [
-        _c(
-          "button",
-          {
-            staticClass:
-              "p-0 w-12 h-12 bg-red-600 rounded-full hover:bg-red-700 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none",
-            on: {
-              click: function($event) {
-                _vm.showingCreateModal = true
-              }
-            }
-          },
-          [
+      _vm.isAdmin
+        ? _c("div", { staticClass: "fixed right-10 bottom-10" }, [
             _c(
-              "svg",
+              "button",
               {
-                staticClass: "w-6 h-6 inline-block",
-                attrs: {
-                  viewBox: "0 0 20 20",
-                  "enable-background": "new 0 0 20 20"
+                staticClass:
+                  "p-0 w-12 h-12 bg-red-600 rounded-full hover:bg-red-700 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none",
+                on: {
+                  click: function($event) {
+                    _vm.showingCreateModal = true
+                  }
                 }
               },
               [
-                _c("path", {
-                  attrs: {
-                    fill: "#FFFFFF",
-                    d:
-                      "M16,10c0,0.553-0.048,1-0.601,1H11v4.399C11,15.951,10.553,16,10,16c-0.553,0-1-0.049-1-0.601V11H4.601\n                                    C4.049,11,4,10.553,4,10c0-0.553,0.049-1,0.601-1H9V4.601C9,4.048,9.447,4,10,4c0.553,0,1,0.048,1,0.601V9h4.399\n                                    C15.952,9,16,9.447,16,10z"
-                  }
-                })
+                _c(
+                  "svg",
+                  {
+                    staticClass: "w-6 h-6 inline-block",
+                    attrs: {
+                      viewBox: "0 0 20 20",
+                      "enable-background": "new 0 0 20 20"
+                    }
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        fill: "#FFFFFF",
+                        d:
+                          "M16,10c0,0.553-0.048,1-0.601,1H11v4.399C11,15.951,10.553,16,10,16c-0.553,0-1-0.049-1-0.601V11H4.601\n                                    C4.049,11,4,10.553,4,10c0-0.553,0.049-1,0.601-1H9V4.601C9,4.048,9.447,4,10,4c0.553,0,1,0.048,1,0.601V9h4.399\n                                    C15.952,9,16,9.447,16,10z"
+                      }
+                    })
+                  ]
+                )
               ]
             )
-          ]
-        )
-      ]),
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c("jet-dialog-modal", {
         attrs: { show: _vm.showingCreateModal, closeable: true },

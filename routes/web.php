@@ -26,7 +26,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::get('/boulder-gyms', [BoulderGymController::class, 'index']);
+    Route::get('/boulder-gyms', [BoulderGymController::class, 'index'])->name('boulder-gyms.index');
     Route::post('/boulder-gyms', [BoulderGymController::class, 'store'])->middleware('can:create,' . BoulderGym::class);
     Route::get('/boulder-gyms/{boulder_gym}', [BoulderGymController::class, 'show'])->name('boulder-gyms.show');
 

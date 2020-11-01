@@ -19,6 +19,10 @@ class BoulderProblemPolicy
      */
     public function create(User $user)
     {
+        if ($user->admin) {
+            return true;
+        }
+
         $requiredDaysSinceRegistration = 3;
         $requiredDateToAddGyms = Carbon::now()->subDays($requiredDaysSinceRegistration);
 
@@ -34,7 +38,7 @@ class BoulderProblemPolicy
      */
     public function update(User $user, BoulderProblem $boulderProblem)
     {
-        return $boulderProblem->creator === $user;
+        return $boulderProblem->creator === $user || $user->admin;
     }
 
     /**
@@ -46,7 +50,7 @@ class BoulderProblemPolicy
      */
     public function delete(User $user, BoulderProblem $boulderProblem)
     {
-        return $boulderProblem->creator === $user;
+        return $boulderProblem->creator === $user || $user->admin;
     }
 
     /**
@@ -58,7 +62,7 @@ class BoulderProblemPolicy
      */
     public function restore(User $user, BoulderProblem $boulderProblem)
     {
-        return $boulderProblem->creator === $user;
+        return $boulderProblem->creator === $user || $user->admin;
     }
 
     /**
@@ -70,6 +74,6 @@ class BoulderProblemPolicy
      */
     public function forceDelete(User $user, BoulderProblem $boulderProblem)
     {
-        return $boulderProblem->creator === $user;
+        return $boulderProblem->creator === $user || $user->admin;
     }
 }

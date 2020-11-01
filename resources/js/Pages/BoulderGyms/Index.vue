@@ -28,7 +28,7 @@
             <jet-section-border v-if="index !== boulderGyms.length - 1" />
         </div>
 
-        <div class="fixed right-10 bottom-10">
+        <div class="fixed right-10 bottom-10" v-if="isAdmin">
             <button @click="showingCreateModal = true"
                 class="p-0 w-12 h-12 bg-red-600 rounded-full hover:bg-red-700 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none">
                 <svg viewBox="0 0 20 20" enable-background="new 0 0 20 20" class="w-6 h-6 inline-block">
@@ -91,7 +91,7 @@
     import Button from "../../Jetstream/Button";
 
     export default {
-        props: ['boulderGyms', 'searchQuery'],
+        props: ['boulderGyms', 'searchQuery', 'isAdmin'],
 
         components: {
             Button,

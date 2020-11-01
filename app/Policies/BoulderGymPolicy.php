@@ -18,7 +18,7 @@ class BoulderGymPolicy
      */
     public function create(User $user)
     {
-        return true;
+        return $user->admin;
     }
 
     /**
@@ -30,7 +30,7 @@ class BoulderGymPolicy
      */
     public function update(User $user, BoulderGym $boulderGym)
     {
-        return true;
+        return $user->admin;
     }
 
     /**
@@ -42,7 +42,7 @@ class BoulderGymPolicy
      */
     public function delete(User $user, BoulderGym $boulderGym)
     {
-        return true;
+        return $user->admin;
     }
 
     /**
@@ -54,7 +54,7 @@ class BoulderGymPolicy
      */
     public function restore(User $user, BoulderGym $boulderGym)
     {
-        return true;
+        return $user->admin;
     }
 
     /**
@@ -66,6 +66,6 @@ class BoulderGymPolicy
      */
     public function forceDelete(User $user, BoulderGym $boulderGym)
     {
-        return true;
+        return $user->admin;
     }
 }

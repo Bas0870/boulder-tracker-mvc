@@ -31,4 +31,5 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/boulder-gyms/{boulder_gym}', [BoulderGymController::class, 'show'])->name('boulder-gyms.show');
 
     Route::post('/boulder-problems', [BoulderProblemController::class, 'store'])->middleware('can:create,' . BoulderProblem::class);
+    Route::post('/boulder-problems/{boulder_problem}/top', [BoulderProblemController::class, 'top']);
 });

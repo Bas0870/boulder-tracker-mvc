@@ -17,6 +17,7 @@ class BoulderProblemResource extends JsonResource
         return [
             'id' => $this->id,
             'grade' => $this->grade,
+            'isTopped' => (bool) count($this->usersThatToppedProblem),
             'creator' => $this->creator,
             'created_at' => $this->created_at ? $this->created_at->toDateTimeString() : null
         ];

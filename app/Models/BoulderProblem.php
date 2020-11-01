@@ -21,4 +21,9 @@ class BoulderProblem extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function usersThatToppedProblem()
+    {
+        return $this->belongsToMany(User::class, 'boulder_problem_user');
+    }
 }

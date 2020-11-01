@@ -24,4 +24,21 @@ class BoulderProblemController extends Controller
 
         return redirect()->route('boulder-gyms.show', ['boulder_gym' => $request->get('boulder_gym_id')]);
     }
+
+    public function top(Request $request, BoulderProblem $boulderProblem)
+    {
+        $request->validateWithBag('topBoulder', [
+            'top' => 'required|boolean'
+        ]);
+
+        $isTopped = $request->get('top');
+
+        if ($isTopped) {
+            $boulderProblem->usersThatToppedProblem()->attach($request->user()->id);
+        } else {
+            $boulderProblem->usersThatToppedProblem()->detach([$request->user()->id]);
+        }
+
+        return redirect()->route('boulder-gyms.show', ['boulder_gym' => $boulderProblem->boulder_gym_id]);
+    }
 }

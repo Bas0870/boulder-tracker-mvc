@@ -52,12 +52,16 @@ class BoulderGymController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\BoulderGym  $boulderGym
+     * @param \App\Models\BoulderGym $boulderGym
+     * @param Request $request
      * @return \Inertia\Response
      */
-    public function show(BoulderGym $boulderGym)
+    public function show(BoulderGym $boulderGym, Request $request)
     {
-        $boulderGym->load('boulderProblems', 'boulderProblems.creator');
+        $userId = $request->user()->id;
+        $boulderGym->load(['boulderProblems', 'boulderProblems.creator', 'boulderProblems.usersThatToppedProblem' => function ($query) use ($userId) {
+            return $query->where('user_id', $userId);
+        }]);
 
         return Inertia::render('BoulderGyms/Detail', [
             'boulderGym' => new BoulderGymResource($boulderGym)
